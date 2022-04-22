@@ -25,10 +25,19 @@ export interface IPostProps {
   title: string;
   content: string;
   user: IUserData | null;
-  isListView: boolean;
+  isListView?: boolean;
+}
+
+export interface IPostsWithUser {
+  user: IUserData,
+  title: string,
+  body: string,
+  userId: string,
+  id: string
 }
 
 export interface IPostContainerProps {
-  postId: string
-  isListView: boolean;
+  postId?: string
+  posts?: IPostsWithUser[] ;
+  isListView?: boolean;
 }

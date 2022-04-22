@@ -18,32 +18,21 @@
 * <Post title={post.title} content={post.body} user={post.user}/>)
 * */
 
-import { useEffect, useState } from 'react';
-import { postsApi } from '../api';
-import { IPostData } from '../post/types';
+import React, { useContext } from 'react';
 import { PostContainer } from '../post/PostContainer';
-import { Comments } from '../comments/Comments';
+import { AppContext } from '../../@types/app';
+import { getPostsWithUserData } from './utils';
 
 export const Posts = () => {
-  const [postsList, setPostsList] = useState<IPostData[]>([]);
+  const { posts, users, isLoading } = useContext(AppContext);
 
-  useEffect(() => {
-    async function getPostsList() {
-      const posts = await postsApi.getPosts();
+  if (isLoading) return <div>Loading...</div>;
 
-      setPostsList(posts);
-    }
-    getPostsList();
-  }, []);
+  const postsWithUserData = getPostsWithUserData(posts, users);
 
   return (
     <div className="flex flex-col p-5 bg-purple">
-      {postsList.map(post => (
-        <>
-          <PostContainer postId={post.id} isListView={false} />
-          <Comments />
-        </>
-      ))}
+      <PostContainer posts={postsWithUserData} isListView />
     </div>
   );
 };

@@ -1,16 +1,13 @@
 import { IPostData, IUserData } from './types';
+import { capitalize } from '../../utils';
 
 export const getUserData = (
   userId: string,
-  users: IUserData[] | null,
-) => users?.find((user: IUserData) => user.id === userId);
+  users: IUserData[],
+) => users.find((user: IUserData) => user.id === userId);
 
-export const formatPostData = (post: IPostData) => {
-  const { title, body } = post;
-
-  return ({
-    ...post,
-    title: title[0].toUpperCase() + title.slice(1),
-    body: body[0].toUpperCase() + body.slice(1),
-  });
-};
+export const formatPostData = (post: IPostData) => ({
+  ...post,
+  title: capitalize(post.title),
+  body: capitalize(post.body),
+});

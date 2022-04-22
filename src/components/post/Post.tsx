@@ -5,7 +5,7 @@ export const Post: React.FC<IPostProps> = memo(({
   title,
   content,
   user,
-  isListView,
+  isListView = false,
 }) => (
   <>
     <div className={isListView ? 'post-header' : 'post-header-bordered'}>
