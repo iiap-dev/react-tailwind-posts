@@ -2,8 +2,8 @@ import { IPostData, IUserData } from './types';
 
 export const getUserData = (
   userId: string,
-  users: IUserData[],
-) => users.find((user: IUserData) => user.id === userId);
+  users: IUserData[] | null,
+) => users?.find((user: IUserData) => user.id === userId);
 
 export const formatPostData = (post: IPostData) => {
   const { title, body } = post;

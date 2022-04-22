@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Post } from './Post';
 import { IPostContainerProps, IPostData, IUserData } from './types';
 import { postsApi } from '../api';
 import { getUserData, formatPostData } from './utils';
 
-export const PostContainer: React.FC<IPostContainerProps> = ({ postId }) => {
-  const [users, setUsers] = useState<IUserData[]>([]);
+export const PostContainer: React.FC<IPostContainerProps> = ({ postId, isListView = false }) => {
+  const [users, setUsers] = useState<IUserData[]>([{
+    id: '',
+    name: '',
+    username: '',
+    address: { city: '' },
+    company: { name: '' },
+  }]);
   const [postData, setPostData] = useState<IPostData>({
     title: '',
-    name: '',
     body: '',
     userId: '',
+    id: '',
   });
 
   useEffect(() => {
@@ -27,13 +33,17 @@ export const PostContainer: React.FC<IPostContainerProps> = ({ postId }) => {
     getData();
   }, []);
 
-  const user = getUserData(postData.userId, users);
-
-  if (!user) return <div>Loading...</div>;
+  const user = useMemo(() => getUserData(postData.userId, users), [postData.userId]);
 
   return (
-    <div className="flex flex-col p-5 bg-amber-50 w-full h-full">
-      <Post title={postData.title} content={postData.body} user={user} />
+    <div className="flex flex-col p-5 bg-white w-full h-full mb-4 rounded-md">
+      <Post
+        key={`post-${postId}`}
+        title={postData.title}
+        content={postData.body}
+        user={user ?? null}
+        isListView={isListView}
+      />
     </div>
   );
 };
