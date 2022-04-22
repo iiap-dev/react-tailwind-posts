@@ -1,8 +1,8 @@
 export interface IPostData {
   title: string;
   body: string;
-  name: string;
   userId: string;
+  id: string;
 }
 
 export interface IAddress {
@@ -24,9 +24,20 @@ export interface IUserData {
 export interface IPostProps {
   title: string;
   content: string;
-  user: IUserData;
+  user: IUserData | null;
+  isListView?: boolean;
+}
+
+export interface IPostsWithUser {
+  user: IUserData,
+  title: string,
+  body: string,
+  userId: string,
+  id: string
 }
 
 export interface IPostContainerProps {
-  postId: string
+  postId?: string
+  posts?: IPostsWithUser[] ;
+  isListView?: boolean;
 }

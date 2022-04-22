@@ -1,6 +1,6 @@
 import { IPostData, IUserData } from './post/types';
 
-async function getPosts() {
+async function getPosts():Promise<IPostData[]> {
   return fetch('https://jsonplaceholder.typicode.com/posts')
     .then((response => response.json()));
 }
