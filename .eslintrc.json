@@ -27,7 +27,19 @@
         "import/no-unresolved": "off",
         "react/react-in-jsx-scope": "off",
         "import/no-extraneous-dependencies": "warn",
-        "import/prefer-default-export": "off"
+        "import/prefer-default-export": "off",
+        "react/prop-types": "off",
+        "import/named": "off",
+        "import/no-duplicates": "warn",
+        "import/no-self-import": "warn",
+        "import/no-relative-packages": "warn",
+        "import/no-named-as-default": "warn",
+        "import/no-named-as-default-member": "warn",
+        "import/order": "warn",
+        "import/no-cycle": "warn",
+        "import/no-useless-path-segments": "warn",
+        "arrow-parens": ["error", "as-needed"],
+        "react/function-component-definition": 0
     },
     "settings": {
         "import/resolver": {
