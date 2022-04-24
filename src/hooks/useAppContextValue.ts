@@ -7,6 +7,7 @@ import { IUserData, AppContextType, IPostData } from '../@types/app';
 import { postsApi } from '../components/api';
 import { formatPostsData } from '../utils';
 
+// TODO refactor, make separate contexts
 export function useAppContextValue(): AppContextType {
   const [users, setUsers] = useState<IUserData[]>([]);
   const [posts, setPosts] = useState<IPostData[]>([]);

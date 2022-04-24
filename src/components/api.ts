@@ -1,4 +1,5 @@
-import { IPostData, IUserData } from './post/types';
+import { IPostData, IUserData } from '../@types/app';
+import { IComment } from './comments/types';
 
 async function getPosts():Promise<IPostData[]> {
   return fetch('https://jsonplaceholder.typicode.com/posts')
@@ -10,7 +11,7 @@ async function getPost(postId: string): Promise<IPostData> {
     .then(data => data.json());
 }
 
-async function getPostComments(postId: string) {
+async function getPostComments(postId: string): Promise<IComment[]> {
   return fetch(`https://jsonplaceholder.typicode.com/comments?postId=${postId}`)
     .then(response => response.json());
 }

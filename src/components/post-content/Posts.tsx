@@ -1,27 +1,7 @@
-/*
-* const postWithUser = getPostWithUser(posts, users)
-*
-* const getPostWithUser = (posts, users) =>
-*
-* posts.map(post => {
-* const user = getUserData(post.userId, users);
-*
-* return ([
-* ...post,
-* user,
-* ])
-* })
-*
-*
-*
-* postWithUser.map(post =>
-* <Post title={post.title} content={post.body} user={post.user}/>)
-* */
-
 import React, { useContext } from 'react';
-import { PostContainer } from '../post/PostContainer';
 import { AppContext } from '../../@types/app';
 import { getPostsWithUserData } from './utils';
+import { PostContainer } from './PostContainer';
 
 export const Posts = () => {
   const { posts, users, isLoading } = useContext(AppContext);

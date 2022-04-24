@@ -21,7 +21,7 @@
     ],
     "rules": {
         "react/jsx-filename-extension": "off",
-        "max-len": ["error", { "code": 100, "tabWidth": 2 }],
+        "max-len": ["error", { "code": 125, "tabWidth": 2 }],
         "linebreak-style": ["warn", "windows"],
         "import/extensions": "off",
         "import/no-unresolved": "off",
@@ -39,7 +39,8 @@
         "import/no-cycle": "warn",
         "import/no-useless-path-segments": "warn",
         "arrow-parens": ["error", "as-needed"],
-        "react/function-component-definition": 0
+        "react/function-component-definition": 0,
+        "react/jsx-no-useless-fragment": "off"
     },
     "settings": {
         "import/resolver": {

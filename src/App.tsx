@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
-import {PostContainer} from "./components/post/PostContainer";
-import {Posts} from "./components/posts/Posts";
-import {IUserData} from "./components/post/types";
 import AppProvider from "./context/appContext";
+import {Posts} from "./components/post-content/Posts";
 
 function App() {
   
