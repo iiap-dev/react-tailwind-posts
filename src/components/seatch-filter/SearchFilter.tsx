@@ -55,13 +55,25 @@ export const SearchFilter = () => {
 
   return (
     <>
+      <div className="relative text-white mt-2.5 text-left">Filter posts:</div>
       <input
+        className="px-3 py-3 placeholder-black/50
+        text-slate-600 relative bg-white bg-white
+        rounded text-sm border-0 shadow outline-none min-w-[375px]"
         placeholder="Enter username to filter posts"
         type="text"
         onChange={onChange}
         value={searchInput}
       />
-      { searchInput && searchMatch.length === 0 && <div className="bg-white border border-red-500">no match found</div> }
+      { searchInput && searchMatch.length === 0 && (
+      <div
+        className="px-3 py-3 placeholder-black/50
+        text-slate-600 relative bg-white bg-white
+        rounded text-sm border-0 shadow outline-none border border-red-500 mb-[50]"
+      >
+        no match found
+      </div>
+      ) }
     </>
   );
 };
