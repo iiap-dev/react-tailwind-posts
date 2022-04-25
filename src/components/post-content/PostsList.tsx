@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { getAssociatedUser } from './utils';
 import { usePostsContext, useUsersContext } from '../../hooks/useContextValue';
 import { postsApi } from '../api';
@@ -45,7 +46,7 @@ export const PostsList = () => {
   // TODO wrap CommentsList with provider
   return (
     <div className="flex flex-col">
-      <SearchFilter />
+      <SearchFilter key="posts-list-filter" />
       <div className="flex flex-col p-5 bg-purple">
         {dataForMapping?.map(post => (
           <div
@@ -53,13 +54,15 @@ export const PostsList = () => {
               px-top bg-white w-full h-full
               rounded-md mb-2.5"
           >
-            <Post
-              key={`post-${post.id}`}
-              title={post.title}
-              content={post.body}
-              username={user[post.id].username}
-              isListView
-            />
+            <Link to={`/post/${post.id}`}>
+              <Post
+                key={`post-${post.id}`}
+                title={post.title}
+                content={post.body}
+                username={user[post.id].username}
+                isListView
+              />
+            </Link>
             <CommentsList postId={post.id} isExpandableView key={`post-${post.id}-comments`} />
           </div>
         ))}
