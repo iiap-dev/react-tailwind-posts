@@ -1,4 +1,4 @@
-import { IPostData } from './@types/app';
+import { IPostData } from './components/post-content/types';
 
 export const capitalize = (text: string) => text[0].toUpperCase() + text.slice(1);
 

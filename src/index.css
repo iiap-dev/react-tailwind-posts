@@ -10,6 +10,18 @@
   .post-header {
     @apply flex justify-between;
   }
+
+  .px-top {
+    @apply px-5 pt-5
+  }
+
+  .comments-wrapper-hidden {
+    @apply min-h-[150px] h-[250px] overflow-hidden
+  }
+
+  .comments-wrapper-visible {
+    @apply h-full
+  }
 }
 
 body {
