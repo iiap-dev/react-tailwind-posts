@@ -13,3 +13,8 @@ export const getAssociatedUser = (
     },
   };
 }, {});
+
+export const getUser = (
+  postData: IPostData,
+  users: IUserData[],
+) => users.find(user => user.id === postData.userId);

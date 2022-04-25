@@ -13,6 +13,12 @@ export const formatPostsData = (
   });
 });
 
+export const formatPostData = (postData: IPostData) => ({
+  ...postData,
+  title: capitalize(postData.title),
+  body: capitalize(postData.body),
+});
+
 export const getPostByUserId = (
   posts: IPostData[],
   usersIds: string[],

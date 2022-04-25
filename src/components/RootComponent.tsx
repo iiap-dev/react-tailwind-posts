@@ -1,18 +1,31 @@
 import React, { useEffect } from 'react';
+import {
+  Route, Routes, useLocation, useMatch, useNavigate,
+} from 'react-router-dom';
 import { useUsersContext } from '../hooks/useContextValue';
 import { postsApi } from './api';
-import PostsProvider from '../context/postsContext';
+import { PostPage } from './post-content/PostPage';
 import { PostsList } from './post-content/PostsList';
+import PostsProvider from '../context/postsContext';
 
 export const RootComponent: React.FC = () => {
-  const { state: { isLoading }, dispatch } = useUsersContext();
+  const { state: { users }, dispatch } = useUsersContext();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const matchPostPage = useMatch('/post/:postId');
 
   useEffect(() => {
-    dispatch({
-      type: 'SET_IS_LOADING',
-      payload: true,
-    });
+    navigate(matchPostPage?.pathname ?? '');
+  }, [matchPostPage]);
 
+  useEffect(() => {
+    if (location.pathname === '/') {
+      navigate('/posts');
+    }
+  }, [location]);
+
+  useEffect(() => {
     async function getData() {
       const data = await postsApi.getUsers();
 
@@ -21,23 +34,32 @@ export const RootComponent: React.FC = () => {
         payload: data,
       });
     }
-
-    getData().finally(() => dispatch({
-      type: 'SET_IS_LOADING',
-      payload: false,
-    }));
+    getData();
   }, []);
 
-  if (isLoading) return <>Loading...</>;
+  if (!users) return <>Loading...</>;
 
   return (
     <div className="flex m-auto w-full md:w-4/5 sm:w-10/12">
-      <PostsProvider>
-        <PostsList />
-      </PostsProvider>
-      {/* { activePostId && ( */}
-      {/*  <PostPage /> */}
-      {/* ) } */}
+      <Routes>
+        <Route
+          index
+          element={(
+            <PostsProvider>
+              <PostsList />
+            </PostsProvider>
+        )}
+        />
+        <Route
+          path="/posts"
+          element={(
+            <PostsProvider>
+              <PostsList />
+            </PostsProvider>
+          )}
+        />
+        <Route path="/post/:postId" element={<PostPage />} />
+      </Routes>
     </div>
   );
 };

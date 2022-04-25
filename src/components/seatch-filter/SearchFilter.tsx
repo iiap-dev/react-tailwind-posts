@@ -69,7 +69,8 @@ export const SearchFilter = () => {
       <div
         className="px-3 py-3 placeholder-black/50
         text-slate-600 relative bg-white bg-white
-        rounded text-sm border-0 shadow outline-none border border-red-500 mb-[50]"
+        rounded text-sm border-0 shadow outline-none border border-red-500 mb-[50]
+        text-crane-red"
       >
         no match found
       </div>

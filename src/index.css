@@ -4,7 +4,7 @@
 
 @layer components {
   .post-header-bordered {
-    @apply flex justify-between border-b pb-5 border-b-purple/50;
+    @apply flex justify-between border-b pb-5 border-b-purple/50 mt-1.5;
   }
 
   .post-header {

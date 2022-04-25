@@ -9,7 +9,7 @@ interface ICommentsContentProps {
 export const CommentsContent: React.FC<ICommentsContentProps> = ({ comments }) => (
   <>
     { comments.map(item => (
-      <div className="mb-2.5 mx-[-20px] ">
+      <div className="mb-2.5 mx-[-20px]" key={`comment-${item.id}`}>
         {/* eslint-disable-next-line max-len */}
         <div className="flex flex-row justify-between p-5 rounded-md min-h-[100px] shadow-card h-full mx-5">
           <div className="text-left">
