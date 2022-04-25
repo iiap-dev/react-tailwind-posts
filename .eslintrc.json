@@ -40,7 +40,8 @@
         "import/no-useless-path-segments": "warn",
         "arrow-parens": ["error", "as-needed"],
         "react/function-component-definition": 0,
-        "react/jsx-no-useless-fragment": "off"
+        "react/jsx-no-useless-fragment": "off",
+        "arrow-body-style": "off"
     },
     "settings": {
         "import/resolver": {
