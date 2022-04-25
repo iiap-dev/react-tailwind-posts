@@ -1,9 +1,12 @@
-import { InitialStateType, SetIsLoadingAction, SetUsersAction } from '../@types/users';
+import {
+  InitialStateType, SetIsLoadingAction, SetUserIdsAction, SetUsersAction,
+} from '../@types/users';
 import { combineReducers } from './combineReducers';
 
 export const initialState = {
   users: [],
   isLoading: false,
+  userIds: [],
 };
 
 const setUsers = (state: InitialStateType, action: SetUsersAction) => {
@@ -34,4 +37,18 @@ const setIsLoading = (state: InitialStateType, action: SetIsLoadingAction) => {
   }
 };
 
-export const usersReducer = combineReducers({ setUsers, setIsLoading });
+const setUserIds = (state: InitialStateType, action: SetUserIdsAction) => {
+  switch (action.type) {
+    case 'SET_USER_IDS': {
+      return {
+        ...state,
+        userIds: action.payload,
+      };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+export const usersReducer = combineReducers({ setUsers, setIsLoading, setUserIds });

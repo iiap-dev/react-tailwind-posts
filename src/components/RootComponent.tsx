@@ -35,6 +35,9 @@ export const RootComponent: React.FC = () => {
       <PostsProvider>
         <PostsList />
       </PostsProvider>
+      {/* { activePostId && ( */}
+      {/*  <PostPage /> */}
+      {/* ) } */}
     </div>
   );
 };
