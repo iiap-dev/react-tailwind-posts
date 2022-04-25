@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { getAssociatedUser } from './utils';
 import { usePostsContext, useUsersContext } from '../../hooks/useContextValue';
 import { postsApi } from '../api';
 import { Post } from './Post';
-import { formatPostsData } from '../../utils';
+import { formatPostsData, getPostByUserId } from '../../utils';
 import { CommentsList } from '../comments/CommentsList';
+import { SearchFilter } from '../seatch-filter/SearchFilter';
 
 export const PostsList = () => {
-  const { state: { users } } = useUsersContext();
+  const { state: { users, userIds } } = useUsersContext();
   const { state: { posts, isLoading }, dispatch } = usePostsContext();
 
   useEffect(() => {
@@ -34,28 +35,36 @@ export const PostsList = () => {
   }, []);
 
   const user = getAssociatedUser(posts, users);
-  const formattedPosts = formatPostsData(posts);
+  const formattedPosts = useMemo(() => formatPostsData(posts), [posts]);
+  const filteredPosts = useMemo(() => getPostByUserId(formattedPosts, userIds), [userIds, formattedPosts]);
+
+  const dataForMapping = filteredPosts.length === 1 ? filteredPosts[0] : formattedPosts;
 
   if (isLoading) return <>Loading...</>;
 
+  // TODO wrap CommentsList with provider
   return (
-    <div className="flex flex-col p-5 bg-purple">
-      {formattedPosts?.map(post => (
-        <div
-          className="flex flex-col
+    <div className="flex flex-col">
+      <SearchFilter />
+      <div className="flex flex-col p-5 bg-purple">
+        {dataForMapping?.map(post => (
+          <div
+            className="flex flex-col
               px-top bg-white w-full h-full
               rounded-md mb-2.5"
-        >
-          <Post
-            key={`post-${post.id}`}
-            title={post.title}
-            content={post.body}
-            username={user[post.id].username}
-            isListView
-          />
-          <CommentsList postId={post.id} isExpandableView key={`post-${post.id}-comments`} />
-        </div>
-      ))}
+          >
+            <Post
+              key={`post-${post.id}`}
+              title={post.title}
+              content={post.body}
+              username={user[post.id].username}
+              isListView
+            />
+            <CommentsList postId={post.id} isExpandableView key={`post-${post.id}-comments`} />
+          </div>
+        ))}
+      </div>
     </div>
+
   );
 };

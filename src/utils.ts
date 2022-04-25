@@ -12,3 +12,8 @@ export const formatPostsData = (
     body: capitalize(body),
   });
 });
+
+export const getPostByUserId = (
+  posts: IPostData[],
+  usersIds: string[],
+) => usersIds.map(id => posts.filter(post => post.userId === id));
