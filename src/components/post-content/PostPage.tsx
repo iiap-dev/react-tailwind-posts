@@ -3,13 +3,13 @@ import {
   memo,
   useContext, useEffect, useState,
 } from 'react';
-import { Post } from './Post';
-import { CommentsList } from '../comments/CommentsList';
 import { IPostData } from './types';
 import { postsApi } from '../api';
 import { UsersContext } from '../../@types/users';
 import { getUser } from './utils';
 import { formatPostData } from '../../utils';
+import { Post } from './Post';
+import { CommentsList } from '../comments/CommentsList';
 
 export const PostPage = memo(() => {
   const { state: { users } } = useContext(UsersContext);
@@ -44,7 +44,7 @@ export const PostPage = memo(() => {
     rounded-md my-2.5"
     >
       <Link to="/posts" replace>
-        <div className="bg-crane-red/50 p-2.5 mx-[-20px] mt-[-20px] mb-2.5 text-white">Back to list</div>
+        <div className="bg-crane-red/50 p-2.5 mx-[-20px] mt-[-20px] mb-2.5 text-white">Back to the list</div>
       </Link>
       <Post title={postData.title} content={postData.body} username={user?.username ?? ''} />
       <CommentsList postId={postId ?? ''} />

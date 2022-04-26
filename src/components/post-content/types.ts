@@ -8,6 +8,7 @@ export interface IPostData {
 export interface IUserData {
   id: string;
   username: string;
+  name: string;
 }
 
 export interface IPostProps {

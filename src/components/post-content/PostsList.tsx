@@ -45,13 +45,13 @@ export const PostsList = () => {
 
   // TODO wrap CommentsList with provider
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col w-full h-full">
       <SearchFilter key="posts-list-filter" />
       <div className="flex flex-col p-5 bg-purple">
         {dataForMapping?.map(post => (
           <div
             className="flex flex-col
-              px-top bg-white w-full h-full
+              px-top bg-white
               rounded-md mb-2.5"
           >
             <Link to={`/post/${post.id}`}>

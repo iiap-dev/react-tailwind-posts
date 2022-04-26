@@ -4,6 +4,7 @@ import { initialState } from '../reducers/usersReducer';
 type UserType = {
   id: string;
   username: string;
+  name: string
 }
 
 export type InitialStateType = {

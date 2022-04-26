@@ -40,7 +40,7 @@ export const RootComponent: React.FC = () => {
   if (!users) return <>Loading...</>;
 
   return (
-    <div className="flex m-auto w-full md:w-4/5 sm:w-10/12">
+    <div className="flex m-auto w-full md:w-4/5">
       <Routes>
         <Route
           index
