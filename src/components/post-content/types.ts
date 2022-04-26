@@ -1,3 +1,5 @@
+import { IGreeting } from '../types';
+
 export interface IPostData {
   title: string;
   body: string;
@@ -11,7 +13,7 @@ export interface IUserData {
   name: string;
 }
 
-export interface IPostProps {
+export interface IPostProps extends IGreeting{
   title: string;
   content: string;
   username: string;

@@ -1,16 +1,23 @@
-import React, { useEffect, useMemo } from 'react';
+import React, {
+  memo,
+  useEffect,
+  useMemo,
+} from 'react';
 import { Link } from 'react-router-dom';
-import { getAssociatedUser } from './utils';
+import { formatPostsData, getAssociatedUser, getPostByUserId } from './utils';
 import { usePostsContext, useUsersContext } from '../../hooks/useContextValue';
 import { postsApi } from '../api';
 import { Post } from './Post';
-import { formatPostsData, getPostByUserId } from '../../utils';
 import { CommentsList } from '../comments/CommentsList';
 import { SearchFilter } from '../seatch-filter/SearchFilter';
+import { IGreeting } from '../types';
+import { consoleGreeting } from '../utils';
 
-export const PostsList = () => {
+interface IPostListProps extends IGreeting {}
+
+export const PostsList: React.FC<IPostListProps> = memo(({ greeting }) => {
   const { state: { users, userIds } } = useUsersContext();
-  const { state: { posts, isLoading }, dispatch } = usePostsContext();
+  const { state: { posts }, dispatch } = usePostsContext();
 
   useEffect(() => {
     dispatch({
@@ -35,18 +42,19 @@ export const PostsList = () => {
     });
   }, []);
 
+  consoleGreeting(greeting, 'PostsList');
+
   const user = getAssociatedUser(posts, users);
   const formattedPosts = useMemo(() => formatPostsData(posts), [posts]);
-  const filteredPosts = useMemo(() => getPostByUserId(formattedPosts, userIds), [userIds, formattedPosts]);
+  const filteredPosts = useMemo(() => getPostByUserId(formattedPosts, userIds), [userIds]);
 
   const dataForMapping = filteredPosts.length === 1 ? filteredPosts[0] : formattedPosts;
 
-  if (isLoading) return <>Loading...</>;
+  if (!posts || !users) return <div className="w-full h-full bg-amber-300 text-2xl p-2.5">Loading...</div>;
 
-  // TODO wrap CommentsList with provider
   return (
     <div className="flex flex-col w-full h-full">
-      <SearchFilter key="posts-list-filter" />
+      <SearchFilter key="posts-list-filter" greeting={greeting} />
       <div className="flex flex-col p-5 bg-purple">
         {dataForMapping?.map(post => (
           <div
@@ -56,6 +64,7 @@ export const PostsList = () => {
           >
             <Link to={`/post/${post.id}`}>
               <Post
+                greeting={greeting}
                 key={`post-${post.id}`}
                 title={post.title}
                 content={post.body}
@@ -63,11 +72,10 @@ export const PostsList = () => {
                 isListView
               />
             </Link>
-            <CommentsList postId={post.id} isExpandableView key={`post-${post.id}-comments`} />
+            <CommentsList greeting={greeting} postId={post.id} isExpandableView key={`post-${post.id}-comments`} />
           </div>
         ))}
       </div>
     </div>
-
   );
-};
+});
