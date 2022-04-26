@@ -1,5 +1,5 @@
 import {
-  useCallback, useContext, useEffect, useState,
+  useCallback, useContext, useState,
 } from 'react';
 import { UsersContext } from '../../@types/users';
 import { IUserData } from '../post-content/types';
@@ -9,49 +9,26 @@ export const SearchFilter = () => {
   const [searchInput, setSearchInput] = useState<string>('');
   const [searchMatch, setSearchMatch] = useState<IUserData[]>(users);
 
-  useEffect(() => {
-    const test = searchMatch.map(item => item.id);
-    dispatch({
-      type: 'SET_USER_IDS',
-      payload: test,
-    });
-  }, [searchMatch]);
+  const onChange = useCallback((event: any) => {
+    setSearchInput(event.target.value);
 
-  useEffect(() => {
-    return () => {
+    if (searchInput !== '') {
+      const filteredUsers = users.filter(item => item.username.toLowerCase()
+        .includes(event.target.value.toLowerCase())); // => [{0: IUserData}]
+
+      setSearchMatch(filteredUsers);
+      dispatch({
+        type: 'SET_USER_IDS',
+        payload: filteredUsers.map(item => item.id),
+      });
+    } else {
+      setSearchMatch(users);
       dispatch({
         type: 'SET_USER_IDS',
         payload: users.map(item => item.id),
       });
-    };
-  }, [searchInput, searchMatch]);
-
-  const onChange = useCallback((event: any) => {
-    setSearchInput(event.target.value);
-
-    // eslint-disable-next-line array-callback-return,consistent-return
-    const test = users.filter(user => {
-      if (searchInput === '') {
-        return user;
-      } if (user.username.toLowerCase()
-        .includes(searchInput.toLowerCase())) {
-        return user;
-      }
-    });
-
-    setSearchMatch(test);
-  }, [searchInput, searchMatch]);
-
-  useEffect(() => {
-    return () => {
-      if (searchMatch.length === 0) {
-        dispatch({
-          type: 'SET_USER_IDS',
-          payload: [],
-        });
-      }
-    };
-  }, [searchMatch]);
+    }
+  }, [searchInput]);
 
   return (
     <>
