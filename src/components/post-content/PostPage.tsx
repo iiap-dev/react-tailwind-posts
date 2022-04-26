@@ -45,9 +45,10 @@ export const PostPage: React.FC<IPostPage> = ({ greeting }) => {
     rounded-md my-2.5"
     >
       <Link to="/posts" replace>
-        <div className="bg-crane-red/50 p-2.5 mx-[-20px] mt-[-20px] mb-2.5 text-white">Back to the list</div>
+        <div className="bg-purple p-2.5 mx-[-20px] mt-[-20px] mb-2.5 text-white rounded-t-md">Back to the list</div>
       </Link>
       <Post greeting={greeting} title={postData.title} content={postData.body} username={user?.username ?? ''} />
+      <div className="my-2.5">Comments</div>
       <CommentsList postId={postId ?? ''} greeting={greeting} />
     </div>
   );
