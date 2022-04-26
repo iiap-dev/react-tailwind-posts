@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
+import { createContext } from 'react';
 import { initialState } from '../reducers/postsReducers';
 
 type PostType = {
@@ -14,9 +14,12 @@ export type InitialStateType = {
   isLoading: boolean;
 }
 
+// eslint-disable-next-line no-unused-vars
+type Dispatch = (action: any) => void;
+
 export const PostsContext = createContext<{
   state: InitialStateType,
-  dispatch: React.Dispatch<any>
+  dispatch: Dispatch
 }>({ state: initialState, dispatch: () => null });
 
 export type SetPostsAction = {

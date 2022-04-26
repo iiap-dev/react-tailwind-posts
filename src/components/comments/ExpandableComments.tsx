@@ -23,7 +23,7 @@ export const ExpandableComments: React.FC<IExpandableCommentsProps> = memo(({ po
       </div>
       <div
         key={`post-${postId}-comments`}
-        className={isShowMore ? '' : 'min-h-[150px] h-[250px] overflow-hidden'}
+        className={isShowMore ? undefined : 'min-h-[150px] h-[250px] overflow-hidden'}
       >
         <CommentsContent comments={comments} />
       </div>

@@ -1,28 +1,32 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, {
+  useEffect,
+  useState,
+} from 'react';
 import { postsApi } from '../api';
 import { IComment } from './types';
 import { ExpandableComments } from './ExpandableComments';
 import { CommentsContent } from './Comments';
+import { IGreeting } from '../types';
+import { consoleGreeting } from '../utils';
 
-interface CommentsListProps {
+interface CommentsListProps extends IGreeting {
   postId: string;
+  // eslint-disable-next-line react/require-default-props
   isExpandableView?: boolean;
 }
 
-export const CommentsList: React.FC<CommentsListProps> = memo(({ postId, isExpandableView = false }) => {
+export const CommentsList: React.FC<CommentsListProps> = ({ postId, isExpandableView = false, greeting }) => {
   const [comments, setComments] = useState<IComment[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    setIsLoading(true);
     async function getCommentsData() {
       const data = await postsApi.getPostComments(postId);
       setComments(data);
     }
-    getCommentsData().finally(() => setIsLoading(false));
+    getCommentsData();
   }, []);
 
-  if (isLoading) return <>Loading...</>;
+  consoleGreeting(greeting, 'CommentsList');
 
   return (
     <>
@@ -31,4 +35,4 @@ export const CommentsList: React.FC<CommentsListProps> = memo(({ postId, isExpan
         : <CommentsContent comments={comments} />}
     </>
   );
-});
+};
